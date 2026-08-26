@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Role
+metadata:
+  name: autoheal-cloud
+  namespace: autoheal
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get"]
+---
+apiVersion: v1
+kind: RoleBinding
+metadata:
+  name: autoheal-cloud
+  namespace: autoheal
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: autoheal-cloud
+subjects:
+- kind: ServiceAccount
+  name: autoheal-cloud
+  namespace: autoheal

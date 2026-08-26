@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: autoheal-config
+  namespace: autoheal
+data:
+  NODE_ENV: "production"
+  PORT: "3000"
+  LOG_LEVEL: "info"
+  # Add your app-specific config here
+  API_BASE_URL: "https://api.example.com"

@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: autoheal-cloud
+  namespace: autoheal
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:us-east-1:ACCOUNT_ID:certificate/CERT_ID"
+    alb.ingress.kubernetes.io/wafv2-web-acl-arn: "arn:aws:wafv2:us-east-1:ACCOUNT_ID:regional/webacl/autoheal/ID"
+    alb.ingress.kubernetes.io/tags: "Environment=dev,ManagedBy=Terraform"
+spec:
+  rules:
+  - host: autoheal.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: autoheal-cloud
+            port:
+              number: 80
+  - host: api.autoheal.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: autoheal-cloud
+            port:
+              number: 80
