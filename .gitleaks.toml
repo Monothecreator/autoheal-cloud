@@ -1,0 +1,30 @@
+title = "gitleaks config"
+
+# Extend the default Gitleaks ruleset (covers AWS, GCP, Azure, GitHub, Slack,
+# Stripe, private keys, JWTs, etc.) instead of replacing it.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Global allowlist"
+
+# Skip common noise paths
+paths = [
+  '''(.*?)(jpg|jpeg|png|gif|svg|lock|min\.js)$''',
+  '''node_modules/''',
+  '''\.git/''',
+  '''dist/''',
+  '''build/''',
+]
+
+# Example: allowlist a specific known-fake test key by regex.
+# Add real entries here as you hit false positives — don't pre-fill with guesses.
+regexes = [
+  # '''EXAMPLE_FAKE_KEY_PATTERN_HERE'''
+]
+
+# Example: allowlist by commit SHA if a historical false positive can't be
+# avoided any other way (use sparingly, and prefer regex/paths above).
+# commits = [
+#   "abc1234"
+# ]
