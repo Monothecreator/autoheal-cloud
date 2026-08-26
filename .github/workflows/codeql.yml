@@ -1,0 +1,42 @@
+name: SAST - CodeQL
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 6 * * 1'   # weekly scan every Monday 06:00 UTC, catches new CVE patterns even with no code changes
+
+permissions:
+  contents: read
+  security-events: write   # required so CodeQL can upload results to the Security tab
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Add/remove languages to match your stack, e.g. 'python', 'go', 'java'
+        language: ['javascript-typescript']
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+
+      # Autobuild works for most interpreted/JS-TS repos.
+      # For compiled languages (Go, Java, C++), replace this step with your
+      # actual build commands.
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
