@@ -1,0 +1,9 @@
+{
+  "name": "autoheal-cloud",
+  "version": "1.0.0",
+  "description": "Self-healing secure app platform",
+  "main": "src/server.js",
+  "dependencies": {
+    "express": "4.18.2"
+  }
+}

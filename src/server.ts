@@ -1,0 +1,18 @@
+import express, { Request, Response } from 'express';
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json());
+
+app.get('/health', (req: Request, res: Response) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/heal', (req: Request, res: Response) => {
+  res.json({ message: 'Self-healing platform active' });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
