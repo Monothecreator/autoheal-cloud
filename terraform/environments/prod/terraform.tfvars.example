@@ -1,0 +1,32 @@
+# terraform.tfvars.example - Production environment
+aws_region  = "us-east-1"
+environment = "prod"
+
+# Network (larger for prod)
+vpc_cidr             = "10.1.0.0/16"
+public_subnet_cidrs  = ["10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24"]
+private_subnet_cidrs = ["10.1.11.0/24", "10.1.12.0/24", "10.1.13.0/24"]
+
+# EKS (higher capacity)
+kubernetes_version  = "1.28"
+node_instance_types = ["t3.large"]
+desired_node_count  = 5
+min_node_count      = 3
+max_node_count      = 20
+node_disk_size      = 50
+
+# IAM
+app_namespace        = "autoheal"
+app_service_account  = "autoheal-cloud"
+
+# Monitoring
+log_retention_days = 90
+alert_email        = "ops-team@example.com"
+
+# Secrets
+db_host     = "your-prod-db.rds.amazonaws.com"
+db_port     = 5432
+db_username = "postgres"
+db_password = "your-secure-prod-password"
+db_name     = "autoheal_cloud_prod"
+api_key     = "your-prod-api-key"
