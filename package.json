@@ -4,6 +4,6 @@
   "description": "Self-healing secure app platform",
   "main": "src/server.js",
   "dependencies": {
-    "express": "4.18.2"
+    "express": "4.22.0"
   }
 }
